@@ -734,6 +734,10 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Pin
 .stpin{width:14px;height:14px;border-radius:7px;background:#fff;border:3px solid #444;box-shadow:0 0 2px rgba(0,0,0,.4)}
 .leaflet-tooltip.lt-st{font-size:11.5px;padding:1px 5px}
 .sapin.ch{border-color:#2e7d32;color:#2e7d32}
+
+.ovpin{width:28px;height:28px;border-radius:8px;background:#6A1B9A;color:#fff;font-weight:700;font-size:14px;line-height:24px;text-align:center;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.45)}
+.ovpin.rec{background:#6A1B9A;box-shadow:0 0 0 2px #ce93d8,0 1px 4px rgba(0,0,0,.45)}
+.ovpin.caution{background:#8D6E63}
 .sapin.rec{background:#ff9800;border-color:#fff;color:#fff;width:26px;height:26px;line-height:22px;font-size:13px;box-shadow:0 0 0 2px #e65100,0 1px 4px rgba(0,0,0,.4)}
 .sa.on{background:#fff3e0;border-radius:6px;padding-left:4px;padding-right:4px}
 .badge.rec{background:#ff9800;color:#fff;border-color:#e65100}
@@ -772,6 +776,7 @@ html,body{margin:0;height:100%;font-family:-apple-system,BlinkMacSystemFont,"Pin
   <div class="dtab" data-d="2" style="--c:#E53935">第2天</div>
   <div class="dtab" data-d="3" style="--c:#2E7D32">第3天</div>
   <div class="dtab" data-d="4" style="--c:#8E24AA">第4天</div>
+  <div class="dtab" data-d="overnight" style="--c:#6A1B9A">过夜停车</div>
  </div>
  <div id="body">
   <div class="pane on" id="p-trip"></div>
@@ -802,7 +807,7 @@ var POI={
    b:['上塘高架 → <b>G25 长深高速</b> → 宜兴 → <b>S39 江宜高速</b> → 江阴长江大桥 → <b>G2 京沪高速</b>（扬州、淮安）→ G25 淮连高速 → <b>G15 沈海高速</b>（连云港、日照）→ 胶州湾隧道 → 市南区','全程约 <b>762 km</b>，纯开车约 <b>8 小时 46 分</b>（OSRM 无拥堵估算），加上充电、吃饭和休息约 10.5–11 小时','高德实际推荐路线可能略有不同（比如宜兴到江阴一段），以导航为准','电车：出发前充到 100%']},
  H:{n:'市南区 · 酒店区域（五四广场一带，示意）',day:1,num:'住',t:'第1天 傍晚入住 · 3 晚',
    a:'青岛市市南区 五四广场 / 香港中路一带（不指定具体酒店）；也可以住中山路一带',
-   b:['订酒店时确认：<b>有停车位 + 充电桩</b>，每晚回来就充上','五四广场一带新楼多、停车相对好找，离奥帆中心、地铁 2/3 号线近；中山路老城区路窄坡陡、停车难','第 2 天和第 3 天晚上车都停酒店，市内打车或步行']},
+   b:['订酒店时确认：<b>有停车位 + 充电桩</b>，每晚回来就充上（仍推荐住酒店）','五四广场一带新楼多、停车相对好找，离奥帆中心、地铁 2/3 号线近；中山路老城区路窄坡陡、停车难','若不住酒店、打算车内过夜：优先停 <b>奥帆中心清远路停车场</b> 或 <b>栈桥广场地面停车场</b>（见「过夜停车」页）','第 2 天和第 3 天白天车尽量停酒店或过夜停车场，市内打车或步行']},
  tdj:{n:'台东步行街 · 晚饭',day:1,num:1,t:'第1天 晚上（到店后打车过去）',
    a:'青岛市市北区 台东三路步行街一带',h:'步行街全天开放，晚上最热闹',
    tr:'从五四广场一带打车约 4 km、10 分钟；也可坐地铁 2 号线到台东站',
@@ -853,7 +858,7 @@ var POI={
    h:'景区 9/1–11/30 7:00–17:30，<b>15:30 停止售票</b>；观光车 7:00–18:30，<b>大河东→太清方向 15:30 停发</b>',
    k:'太清游览区约 <b>130 元/人</b>（门票 90 + 观光车 40），门票两日有效；<b>提前 7 天</b>在公众号「崂山风景区」/「青岛崂山风景名胜区」或携程、美团、抖音实名预约，限量',
    tr:'酒店自驾约 23 km、30 分钟。<b>私家车停大河东游客服务中心停车场，换景区观光车进太清</b>；流清到垭口一段只准观光车通行（景区官方）',
-   w:'停车场春节通告写的是免费，平时是否收费以现场为准'},
+   w:'白天停这里换观光车去太清没问题；<b>不适合过夜 / 车内过夜</b>（近期车友反馈大河东不允许房车或车内过夜）。想在崂山附近过夜请去「流清河沙滩停车场」，不是这里。平时停车费以现场为准'},
  tqg:{n:'太清游览区 · 太清宫 · 山海木栈道',day:3,num:2,t:'第3天 9:00–12:30',
    a:'青岛市崂山区 王哥庄街道 太清游览区（观光车在太清广场下车）',
    h:'同景区开放时间',
@@ -878,6 +883,41 @@ var POI={
    a:'市南区 → G15 → G25 淮连 → G2 → S39 → G25 → 杭州',
    b:['全程约 <b>766 km</b>，纯开车约 <b>8 小时 50 分</b>（OSRM 无拥堵估算），加上充电、吃饭、休息约 10.5–11 小时','头天晚上在酒店充满；推荐在 <b>平桥服务区</b>（离青岛约 371 km）吃午饭顺便充电，充到 90% 以上','电量不够的备选：宝应服务区（约 412 km）；后半程还可以在小黄山（约 543 km）、淹城（约 580 km）补电','快到杭州正好赶上晚高峰，入城段看实时路况']}
 };
+
+// 过夜停车：来自小红书车友分享，非官方许可；坐标尽量用 OSM 命名停车场 / 明确地标
+var OVERNIGHT=[
+ {id:'qy',rec:1,n:'奥帆中心清远路停车场',p:[36.06118,120.38579],
+  a:'市南区澳门路与清远路交汇处（西邻五四广场，东邻奥帆中心西门）',
+  days:[1,2],near:'五四广场 / 奥帆中心',
+  fee:'旺季夜间封顶约 ¥10（帖子写 18:30–次日 7:30）；充电约 ¥0.9/度过夜',
+  note:'车位多、夜里相对安静，厕所干净，充电桩多。车友推荐首选。附近评论还提到中山公园旁动物园停车场、青岛城市展览馆停车场（据说夜间也约 ¥10），可作备选，本页不单独标点。',
+  tip:'适合第1天到青岛、第2天看完灯光秀后车内过夜'},
+ {id:'zq_p',rec:1,n:'青岛栈桥广场地面停车场',p:[36.06190,120.31834],
+  a:'市南区太平路 8 号一带（太平路以南、海岸线以东；导航搜「青岛栈桥广场地面停车场」）',
+  days:[2],near:'栈桥',
+  fee:'帖子写夜间封顶约 ¥10（18:30–7:30）；白天单价后来有涨价反馈',
+  note:'车位多，码头驿站有厕所。请看现场收费牌确认夜间封顶价，别停到旁边更贵的地下停车场。',
+  tip:'适合第2天逛老城、栈桥一带车内过夜'},
+ {id:'lqh',rec:1,n:'流清河沙滩停车场',p:[36.12402,120.60616],
+  a:'崂山区沙子口街道流清河一带（公交站名也叫「流清河停车场」；在大河东游客中心东侧沿海约 2–3 km）',
+  days:[3],near:'崂山海岸 / 大河东·太清方向（景区门外）',
+  fee:'帖子写约 ¥10/晚；车位大、过夜车多',
+  note:'<b>推荐的崂山过夜点，不是大河东。</b>景区关闭后也能进，不用预约。厕所有，评价一般；场内基本没充电桩，充电要再开几公里。明确不在景区闸机内。',
+  tip:'第3天白天仍停大河东换乘；若当晚想在山边过夜，开到流清河'},
+ {id:'dh',rec:0,caution:1,n:'东海大酒店停车场',p:[36.04769,120.34013],
+  a:'市南区汇泉路 17 号东海大酒店（八大关南侧海边）',
+  days:[2],near:'八大关 / 第二海水浴场',
+  fee:'有帖子称傍晚进、白天出免费（面向大海）',
+  note:'<b>单源，谨慎。</b>仅见一篇较火的车友帖，是否仍可过夜、是否收费以现场管理员为准，不要默认免费。',
+  tip:'第2天逛八大关时的备选，优先考虑奥帆清远路 / 栈桥广场'},
+ {id:'yk1',rec:0,caution:1,n:'仰口一号地上停车场',p:[36.23836,120.66574],
+  a:'崂山区王哥庄街道仰口游览区一号地面停车场（官方：约 403 车位，含充电位）',
+  days:[],near:'崂山仰口（不是大河东 / 太清）',
+  fee:'以景区现场为准；帖子提到可车内过夜赶约 4:30 日出',
+  note:'本行程第3天主线是大河东→太清，来仰口属于绕路。若改走仰口线或专门看日出可考虑。',
+  tip:'可选绕路，不在默认第3天路线上'}
+];
+var OVDISC='来自小红书车友分享，非官方许可，以现场收费牌和管理员为准；费用可能已变。';
 POI.back.p='H';
 // 购票：没有固定日期，写“相对参观日”
 var BOOK=[
@@ -905,10 +945,11 @@ var BOOK=[
   src:'<a href="https://www.guanhai.com.cn/p/462421.html" target="_blank" rel="noopener">观海新闻 2026/7/14（市城市管理局）</a>'}];
 var TIPS=[
  ['🌬️ 天气','10 月下旬青岛白天约 17–19℃、晚上 12–14℃，海边风大，体感更冷：带防风外套和一件薄的保暖层。海水约 19℃，<b>不适合下海游泳</b>，沙滩散步就好。崂山山上比市区更冷。'],
- ['🅿️ 停车','车只在第 1 天、第 3 天上午（崂山）和第 4 天开。中山路、信号山、大学路一带是老城区，<b>路窄、坡陡、单行多、停车难</b>，第 2 天车停酒店，步行加打车。崂山停大河东游客服务中心，换观光车。'],
- ['🏨 住','市南区住 3 晚，推荐五四广场 / 香港中路一带（停车相对好找，离奥帆中心近），喜欢老城氛围也可以住中山路附近。订房前确认<b>有停车位和充电桩</b>（或附近有公共充电站），并告诉酒店傍晚才到。'],
+ ['🅿️ 停车','车主要在第 1 天、第 3 天上午（崂山）和第 4 天开。中山路、信号山、大学路一带是老城区，<b>路窄、坡陡、单行多、停车难</b>，第 2 天车停酒店或过夜停车场，步行加打车。崂山白天停大河东换观光车；<b>大河东不适合过夜</b>，山边过夜改停流清河沙滩停车场。啤酒博物馆 / 登州路 / 台东没有可靠过夜点——车停奥帆或栈桥，再打车过去。'],
+ ['🏨 住','仍推荐市南区住酒店 3 晚（五四广场 / 香港中路一带停车相对好找）。订房前确认<b>有停车位和充电桩</b>，并告诉酒店傍晚才到。若选择车内过夜，见「过夜停车」页：市区优先奥帆清远路 / 栈桥广场，崂山附近用流清河（不是大河东）。'],
  ['🔋 电车','单程约 762 km，额定续航约 500 km，高速上实际续航通常只有 70%–80%（约 350–400 km），只充一次比较紧。<b>出发前充满</b>，中途在宝应服务区（去程，约 354 km）/ 平桥服务区（回程，约 371 km）吃饭顺便充到 90% 以上，大约 40–60 分钟；后半程<b>剩电低于 30% 就在日照或海青服务区（去程）/ 小黄山或淹城服务区（回程）补 15–20 分钟</b>，别硬撑。到了青岛每晚在酒店充上。节假日服务区充电要排队，用国网 e 充电 / 高德 App 看实时空闲桩。'],
  ['🦪 吃','必吃：<b>辣炒蛤蜊、鲅鱼水饺、海肠捞饭</b>，配<b>原浆啤酒</b>（登州路、台东一带很多）。想吃海鲜可以去营口路或团岛农贸市场自己挑，再找市场周边能加工的店：先问清加工费、调料、米饭怎么算，称重时要求沥水，到公平秤复称。本页不推荐具体饭店。'],
+ ['🌙 过夜停车','来自小红书实测，<b>不是官方露营许可</b>。优先选安静、安全、有厕所、有充电的点；不要占消防通道。共享市政停车场常见规则（帖子里的现场牌）：旺季 4/20–10/10 夜间封顶约 ¥10，淡季 10/11–4/19 约 ¥5——今天若已过 10/10，以现场牌为准（费用可能已变）。每个点的弹窗都写了来源声明。海之恋 / 极地海洋世界风情街北三门 / 千水千月等说法不一（免费、收费、不让停都有），不推荐依赖，本页不标。'],
  ['🍺 酒驾','第 3 天下午喝啤酒前一定把车停回酒店，啤酒博物馆和啤酒街都打车往返。第 4 天早上要开长途，前一晚少喝。'],
  ['🪪 证件','崂山、啤酒博物馆都是<b>实名制</b>，2 人分别用身份证预约，入园带<b>身份证原件</b>。'],
  ['🚇 市内交通','地铁 3 号线到青岛站（栈桥）、2 号线到台东和五四广场、4 号线到崂山大河东。老城坡多，嫌累就打车。']];
@@ -936,7 +977,7 @@ L.control.scale({imperial:false}).addTo(map);
 var MODE={walk:{n:'步行',i:'🚶'},taxi:{n:'打车',i:'🚕'},shuttle:{n:'景区观光车',i:'🚌'},car:{n:'自驾',i:'🚗'}};
 function legTxt(l){return MODE[l.mode].i+' '+MODE[l.mode].n+'：'+l.note+' · 约 '+l.km+' km / '+l.min+' 分钟'+(l.opt?'（可选）':'');}
 var DAYS=[1,2,3,4];
-var G={drive:L.layerGroup()},BND={drive:L.latLngBounds([])};DAYS.forEach(function(d){G[d]=L.layerGroup();BND[d]=L.latLngBounds([]);});
+var G={drive:L.layerGroup(),overnight:L.layerGroup()},BND={drive:L.latLngBounds([]),overnight:L.latLngBounds([])};DAYS.forEach(function(d){G[d]=L.layerGroup();BND[d]=L.latLngBounds([]);});
 var LL=[];
 LEGS.forEach(function(l,i){var c=DAYC[l.day],ls=[];
  if(l.mode==='walk')ls.push(L.polyline(l.g,{color:c,weight:4.5,opacity:l.opt?.6:.95,dashArray:'1,8',lineCap:'round'}));
@@ -957,6 +998,23 @@ function saIcon(s){var cls=s.rec?' rec':(s.ch?' ch':'');return L.divIcon({classN
 var SAM=[];SA.forEach(function(s,i){var m=L.marker(s.p,{icon:saIcon(s),zIndexOffset:s.rec?800:0}).bindPopup(saPopup(s),{maxWidth:310}).bindTooltip(s.n+(s.rec?'（推荐充电）':''),{direction:'top',offset:[0,-10]});m.addTo(G.drive);SAM[i]=m;
  if(s.rec==='go'||s.bk==='go')L.marker(s.p,{icon:saIcon(s.rec==='go'?s:{ch:1}),zIndexOffset:800}).bindPopup(saPopup(s),{maxWidth:310}).bindTooltip(s.n,{direction:'top',offset:[0,-10]}).addTo(G[1]);
  if(s.rec==='back'||s.n==='小黄山服务区'||s.n==='淹城服务区')L.marker(s.p,{icon:saIcon(s.rec==='back'?s:{ch:1}),zIndexOffset:800}).bindPopup(saPopup(s),{maxWidth:310}).bindTooltip(s.n,{direction:'top',offset:[0,-10]}).addTo(G[4]);});
+
+// overnight parking markers
+function ovIcon(o){var rec=o.rec,c=o.caution;return L.divIcon({className:'',html:'<div class="ovpin'+(rec?' rec':'')+(c?' caution':'')+'">'+(rec?'🌙':'P')+'</div>',iconSize:[28,28],iconAnchor:[14,14],popupAnchor:[0,-12]});}
+function ovPopup(o){var h='<div class="pp"><h4>🌙 '+esc(o.n)+(o.rec?' <span class="badge rec">推荐</span>':'')+(o.caution?' <span class="badge g">谨慎</span>':'')+'</h4>';
+ h+='<div class="t">过夜停车 · 靠近 '+esc(o.near)+'</div>';
+ h+='<div class="r warn">⚠ '+OVDISC+'</div>';
+ if(o.a)h+='<div class="r"><b class="l">地址</b>'+o.a+'</div>';
+ if(o.fee)h+='<div class="r"><b class="l">费用</b>'+o.fee+'</div>';
+ if(o.note)h+='<div class="r"><b class="l">说明</b>'+o.note+'</div>';
+ if(o.tip)h+='<div class="r"><b class="l">行程</b>'+o.tip+'</div>';
+ h+=nav(o.p,o.n);return h+'</div>';}
+var OVM={};
+OVERNIGHT.forEach(function(o){var m=L.marker(o.p,{icon:ovIcon(o),zIndexOffset:o.rec?1200:900});
+ m.bindPopup(ovPopup(o),{maxWidth:320,autoPanPaddingTopLeft:[10,60]});m.bindTooltip((o.rec?'🌙 ':'P ')+o.n,{direction:'top',offset:[0,-14]});
+ OVM[o.id]=m;m.addTo(G.overnight);BND.overnight.extend(o.p);
+ (o.days||[]).forEach(function(d){L.marker(o.p,{icon:ovIcon(o),zIndexOffset:o.rec?1100:800}).bindPopup(ovPopup(o),{maxWidth:320}).bindTooltip((o.rec?'🌙 ':'P ')+o.n,{direction:'top',offset:[0,-14]}).addTo(G[d]);BND[d].extend(o.p);});
+});
 // endpoints in drive view
 [[D.P.hz,'杭州'],[D.P.H,'青岛市南区']].forEach(function(e){L.marker(e[0],{icon:L.divIcon({className:'',html:'<div class="pin" style="background:'+DAYC.drive+'">'+e[1].slice(0,1)+'</div>',iconSize:[26,26],iconAnchor:[13,13]})}).bindTooltip(e[1],{direction:'top',offset:[0,-12]}).bindPopup('<div class="pp"><h4>'+e[1]+'</h4>'+nav(e[0],e[1]==='杭州'?'杭州武林广场':'青岛五四广场')+'</div>').addTo(G.drive);});
 // POI markers
@@ -982,9 +1040,9 @@ G.allx=L.layerGroup();['tdj','slr'].forEach(function(k){var p=POI[k];L.marker(po
 var Hday={};[2,3].forEach(function(d){Hday[d]=L.marker(D.P.H,{icon:L.divIcon({className:'',html:'<div class="pin" style="background:#1565C0">住</div>',iconSize:[26,26],iconAnchor:[13,13]}),zIndexOffset:400}).bindPopup(popup('H'),{maxWidth:310}).bindTooltip('市南区 · 酒店区域（示意）',{direction:'top',offset:[0,-12]}).addTo(G[d]);BND[d].extend(D.P.H);});
 // ---------- timelines ----------
 var TL={
- 1:[{p:'hz',t:'7:00'},{t:'约 11:15',x:'到 <b>宝应服务区</b>（约 354 km）吃午饭、充电到 90% 以上',sa:'宝应服务区'},{t:'下午',x:'剩电低于 30% 就在 <b>日照</b>（约 630 km）或 <b>海青服务区</b>（约 664 km）补电 15–20 分钟',sa:'海青服务区'},{p:'H',t:'17:45–18:30',x:'到酒店入住，给车充上电'},{mv:[0]},{p:'tdj',t:'19:00–20:30'},{mv:[1],x:'早点休息'}],
- 2:[{t:'8:30',x:'车留酒店',mv:[2]},{p:'zq',t:'9:00–9:45'},{mv:[3]},{p:'tzj',t:'10:00–10:45'},{mv:[4]},{p:'pcy',t:'11:15–12:30'},{mv:[5]},{p:'xhs',t:'13:00–14:00'},{mv:[6]},{p:'dxl',t:'14:15–14:45'},{mv:[7]},{p:'xys',t:'15:00–15:40'},{mv:[8]},{p:'bdg',t:'16:00–17:00'},{mv:[9]},{p:'ery',t:'17:00–17:30'},{mv:[10]},{p:'ofz',t:'18:15–19:30',x:'灯光秀 18:30 开始'},{mv:[11]},{p:'wsg',t:'19:30–21:00'},{mv:[12],x:'步行回酒店'}],
- 3:[{t:'7:30',x:'酒店出发（提前 7 天已约好太清游览区门票）',mv:[13]},{p:'dhd',t:'8:00'},{mv:[14]},{p:'tqg',t:'9:00–12:30',mv0:[15]},{t:'12:30',x:'坐观光车回大河东，附近或回市区吃午饭',mv:[16,17]},{t:'14:30',x:'车停回酒店，<b>下午要喝酒，之后都打车</b>',mv:[18]},{p:'pjb',t:'15:00–17:00'},{mv:[19]},{p:'pjj',t:'17:00–20:00'},{mv:[20],x:'回酒店，给车充满电'}],
+ 1:[{p:'hz',t:'7:00'},{t:'约 11:15',x:'到 <b>宝应服务区</b>（约 354 km）吃午饭、充电到 90% 以上',sa:'宝应服务区'},{t:'下午',x:'剩电低于 30% 就在 <b>日照</b>（约 630 km）或 <b>海青服务区</b>（约 664 km）补电 15–20 分钟',sa:'海青服务区'},{p:'H',t:'17:45–18:30',x:'到酒店入住并充电；若车内过夜，优先停 <b>奥帆清远路停车场</b>（见过夜停车）'},{mv:[0]},{p:'tdj',t:'19:00–20:30'},{mv:[1],x:'早点休息'}],
+ 2:[{t:'8:30',x:'车留酒店',mv:[2]},{p:'zq',t:'9:00–9:45'},{mv:[3]},{p:'tzj',t:'10:00–10:45'},{mv:[4]},{p:'pcy',t:'11:15–12:30'},{mv:[5]},{p:'xhs',t:'13:00–14:00'},{mv:[6]},{p:'dxl',t:'14:15–14:45'},{mv:[7]},{p:'xys',t:'15:00–15:40'},{mv:[8]},{p:'bdg',t:'16:00–17:00'},{mv:[9]},{p:'ery',t:'17:00–17:30'},{mv:[10]},{p:'ofz',t:'18:15–19:30',x:'灯光秀 18:30 开始'},{mv:[11]},{p:'wsg',t:'19:30–21:00'},{mv:[12],x:'步行回酒店；车内过夜可停奥帆清远路 / 栈桥广场'}],
+ 3:[{t:'7:30',x:'酒店出发（提前 7 天已约好太清游览区门票）',mv:[13]},{p:'dhd',t:'8:00',x:'白天换乘；<b>不适合过夜</b>'},{mv:[14]},{p:'tqg',t:'9:00–12:30',mv0:[15]},{t:'12:30',x:'坐观光车回大河东；若当晚山边过夜，改停 <b>流清河沙滩停车场</b>（不是大河东）',mv:[16,17]},{t:'14:30',x:'车停回酒店，<b>下午要喝酒，之后都打车</b>',mv:[18]},{p:'pjb',t:'15:00–17:00'},{mv:[19]},{p:'pjj',t:'17:00–20:00'},{mv:[20],x:'回酒店，给车充满电'}],
  4:[{t:'7:00',x:'早饭、退房'},{t:'7:30',mv:[21]},{p:'slr',t:'7:30–8:15'},{p:'back',t:'8:00–8:30 出发'},{t:'约 13:00',x:'到 <b>平桥服务区</b>（离青岛约 371 km）吃午饭、充电到 90% 以上',sa:'平桥服务区'},{t:'下午',x:'剩电低于 30% 就在 <b>小黄山</b>（约 543 km）或 <b>淹城服务区</b>（约 580 km）补电',sa:'淹城服务区'},{t:'19:00–20:00',x:'到杭州（赶上晚高峰）'}]};
 function saIdx(n){for(var i=0;i<SA.length;i++)if(SA[i].n===n)return i;return -1;}
 function mvHtml(ids){return ids.map(function(i){var l=LEGS[i];return '<span class="mode" data-leg="'+i+'" title="'+esc(legTxt(l))+'">'+MODE[l.mode].i+' '+esc(l.note)+' · '+(l.km<1?Math.round(l.km*1000)+' m':l.km+' km')+' · 约 '+l.min+' 分钟</span>';}).join('<br>');}
@@ -1003,18 +1061,27 @@ function driveHtml(){var g=D.go,b=D.back;
  h+='<div class="tli mv"><span class="mt">返程服务区（距青岛）：</span>'+SA.slice().reverse().map(function(s){return saRow(s,SA.indexOf(s),'back');}).join('')+'<div class="mt">返程推荐在 <b>平桥服务区</b>（约 371 km）吃午饭充电；后半程备选 <b>小黄山 / 淹城服务区</b>。</div></div></div>';
  h+='<div class="card"><h3>🔋 电车续航怎么算</h3>额定约 500 km，高速 110–120 km/h 时实际一般只有 350–400 km。所以：出发前充满 → 中点附近充一次到 90% 以上（40–60 分钟）→ 后半程看电量，低于 30% 就再补 15–20 分钟。服务区充电桩空闲情况用国网 e 充电 / 高德 App 实时查，节假日要排队。</div>';
  return h;}
+
+function overnightHtml(){var h='<div class="note warn" style="background:#fff8e1;border:1px solid #ffe082;border-radius:8px;padding:8px 10px">'+OVDISC+' 优先安静、安全、有厕所和充电；不要占消防通道。市政共享停车场帖子里常见：旺季 4/20–10/10 夜间封顶约 ¥10，淡季 10/11–4/19 约 ¥5——以现场牌为准。</div>';
+ h+='<div class="sep" style="color:#6A1B9A">推荐（优先）</div><div class="tl" style="--c:#6A1B9A">';
+ OVERNIGHT.filter(function(o){return o.rec;}).forEach(function(o){h+='<div class="tli poi" data-ov="'+o.id+'"><span class="num" style="background:#6A1B9A">🌙</span><span class="nm">'+esc(o.n)+'</span><div class="mt">📍 '+o.near+'</div><div class="mt">💰 '+o.fee+'</div><div class="mt">'+o.note+'</div></div>';});
+ h+='</div><div class="sep" style="color:#8D6E63">谨慎 / 备选</div><div class="tl" style="--c:#8D6E63">';
+ OVERNIGHT.filter(function(o){return !o.rec;}).forEach(function(o){h+='<div class="tli poi" data-ov="'+o.id+'"><span class="num" style="background:#8D6E63">P</span><span class="nm">'+esc(o.n)+'</span><div class="mt">📍 '+o.near+'</div><div class="mt">💰 '+o.fee+'</div><div class="mt">'+o.note+'</div></div>';});
+ h+='</div><div class="card"><h3>🚫 不要当过夜点</h3><b>大河东停车场</b>：白天停、换观光车去太清没问题，近期车友反馈不允许房车 / 车内过夜。<b>啤酒博物馆、登州路、台东</b>：没有可靠过夜信息——车停奥帆清远路或栈桥广场，再打车过去。<br><span class="mt">海之恋 / 极地海洋世界风情街北三门 / 千水千月：免费、收费、不让停说法不一，不推荐依赖，本页不标点。</span></div>';
+ return h+legendHtml();}
 function allHtml(){var h='<div class="card" style="background:#f7f9ff"><b>行程总览</b>（点上面的天数看当天路线和时间轴）<br>';
  h+='<span style="color:'+DAYC[1]+'">● 第1天</span> 7:00 杭州出发 → 宝应服务区充电 → 傍晚到青岛市南区（约 '+Math.round(D.go.km)+' km）→ 台东步行街吃晚饭<br>';
  h+='<span style="color:'+DAYC[2]+'">● 第2天</span> 栈桥 → 天主教堂 → 劈柴院午饭 → 信号山 → 大学路 → 小鱼山 → 八大关 + 第二海水浴场 → 奥帆中心灯光秀 → 五四广场（车停酒店）<br>';
  h+='<span style="color:'+DAYC[3]+'">● 第3天</span> 自驾到崂山大河东换观光车 → 太清宫 → 车停回酒店 → 青岛啤酒博物馆 → 登州路啤酒街<br>';
  h+='<span style="color:'+DAYC[4]+'">● 第4天</span> （可选）石老人海水浴场 → 自驾回杭州，平桥服务区充电，晚上到家</div>';
+ h+='<div class="card bk" style="--c:#6A1B9A;cursor:pointer" data-go="overnight"><b style="color:#6A1B9A">🌙 过夜停车（车内过夜备选）</b><br><span class="mt" style="font-size:12.5px;color:#555">奥帆清远路 · 栈桥广场 · 流清河（推荐）；东海大酒店 / 仰口一号（谨慎）</span></div>';
  h+=['drive',1,2,3,4].map(function(d){return '<div class="card bk" style="--c:'+DAYC[d]+';cursor:pointer" data-go="'+d+'"><b style="color:'+DAYC[d]+'">'+(d==='drive'?'🚗 自驾路线（去程第1天 · 返程第4天）':DAYN[d])+'</b><br><span class="mt" style="font-size:12.5px;color:#555">'+(d==='drive'?'约 '+D.go.km+' km / 单程纯开车 '+hm(D.go.min)+' · 服务区 · 充电点':TL[d].filter(function(x){return x.p;}).map(function(x){return POI[x.p].n;}).join(' → '))+'</span></div>';}).join('');
  h+=legendHtml()+'<div class="note">路线：自驾 / 打车 / 观光车来自 OSRM（OpenStreetMap 数据），步行来自 FOSSGIS 步行路由，都已预先算好放在页面里；时间是估算，出行以高德 / 百度实时导航为准。景点开放和购票信息查自景区官网和官方公告（2026 年），出发前请再确认。日期还没定，所以只写第1天–第4天。</div>';
  return h;}
 function legendHtml(){function sv(st){return '<svg width="44" height="10">'+st+'</svg>';}
  return '<div class="legend"><b>图例</b><br>'+sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#1565C0" stroke-width="6"/>')+'自驾去程　'+sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#00838F" stroke-width="3.5" stroke-dasharray="10,9"/>')+'自驾返程<br>'+
  sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#2E7D32" stroke-width="5"/>')+'市内自驾　'+sv('<line x1="3" y1="5" x2="42" y2="5" stroke="#E53935" stroke-width="4.5" stroke-dasharray="1,8" stroke-linecap="round"/>')+'步行　'+sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#E53935" stroke-width="4" stroke-dasharray="10,7"/>')+'打车<br>'+
- sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#2E7D32" stroke-width="4" stroke-dasharray="5,6"/>')+'景区观光车<br>颜色：<span style="color:'+DAYC[1]+'">■ 第1天</span> <span style="color:'+DAYC[2]+'">■ 第2天</span> <span style="color:'+DAYC[3]+'">■ 第3天</span> <span style="color:'+DAYC[4]+'">■ 第4天</span> · 数字 = 当天顺序<br><span class="sapin rec" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">充</span> 推荐充电服务区　<span class="sapin ch" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">服</span> 有充电桩　<span class="sapin" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">服</span> 充电未核实</div>';}
+ sv('<line x1="2" y1="5" x2="42" y2="5" stroke="#2E7D32" stroke-width="4" stroke-dasharray="5,6"/>')+'景区观光车<br>颜色：<span style="color:'+DAYC[1]+'">■ 第1天</span> <span style="color:'+DAYC[2]+'">■ 第2天</span> <span style="color:'+DAYC[3]+'">■ 第3天</span> <span style="color:'+DAYC[4]+'">■ 第4天</span> · 数字 = 当天顺序<br><span class="sapin rec" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">充</span> 推荐充电服务区　<span class="sapin ch" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">服</span> 有充电桩　<span class="sapin" style="display:inline-block;width:18px;height:18px;line-height:14px;font-size:10px">服</span> 充电未核实<br><span class="ovpin rec" style="display:inline-block;width:20px;height:20px;line-height:16px;font-size:11px">🌙</span> 推荐过夜停车　<span class="ovpin" style="display:inline-block;width:20px;height:20px;line-height:16px;font-size:11px">P</span> 过夜备选 / 谨慎</div>';}
 // ---------- booking ----------
 function bookHtml(){var h='<div class="note">日期还没定，下面写的是<b>相对参观日</b>什么时候买。崂山和啤酒博物馆都是实名制，2 人分别用身份证预约，入园带<b>身份证原件</b>。本页只整理信息，没有代买代约。</div>';
  BOOK.forEach(function(b){h+='<div class="card bk'+(b.hot?' hot':'')+'" style="--c:'+DAYC[b.c]+'"><span class="cd">'+(b.c==3?'第3天':'第2天')+'</span><div class="when">'+b.w+'</div><div><b>'+b.n+'</b></div><div class="mt" style="font-size:12.5px;color:#444">📱 '+b.how+'</div><div class="mt" style="font-size:12.5px;color:#555">'+b.note+'</div><div class="src">来源：'+b.src+'</div></div>';});
@@ -1023,12 +1090,14 @@ function tipsHtml(){return TIPS.map(function(t){return '<div class="card"><h3>'+
 // ---------- view switching ----------
 var curD='all',curM='trip';
 function show(d,fit){curD=d;Object.keys(G).forEach(function(k){map.removeLayer(G[k]);});
- if(d==='all'){['drive',2,3,'allx'].forEach(function(k){G[k].addTo(map);});}else G[d].addTo(map);
+ if(d==='all'){['drive',2,3,'allx','overnight'].forEach(function(k){G[k].addTo(map);});}
+ else if(d==='overnight'){G.overnight.addTo(map);}
+ else G[d].addTo(map);
  document.querySelectorAll('.dtab').forEach(function(e){e.classList.toggle('on',e.dataset.d==String(d));});
- var p=document.getElementById('p-trip');p.innerHTML=d==='all'?allHtml():(d==='drive'?driveHtml():dayHtml(d)+legendHtml());
+ var p=document.getElementById('p-trip');p.innerHTML=d==='all'?allHtml():(d==='drive'?driveHtml():(d==='overnight'?overnightHtml():dayHtml(d)+legendHtml()));
  if(fit!==false)fitTo(d);}
 function padOpt(){if(isMob()){var sh=document.getElementById('side').offsetHeight;return {paddingTopLeft:[20,20],paddingBottomRight:[20,sh+36]};}return {padding:[30,30]};}
-function fitTo(d){var b;if(d==='all'){b=L.latLngBounds([]);b.extend(BND.drive);}else b=BND[d];map.fitBounds(b,Object.assign(padOpt(),{maxZoom:15}));}
+function fitTo(d){var b;if(d==='all'){b=L.latLngBounds([]);b.extend(BND.drive);b.extend(BND.overnight);}else if(d==='overnight'){b=BND.overnight;}else b=BND[d];map.fitBounds(b,Object.assign(padOpt(),{maxZoom:d==='overnight'?12:15}));}
 function setMain(m){curM=m;if(m!=='trip')map.closePopup();document.querySelectorAll('.mtab').forEach(function(e){e.classList.toggle('on',e.dataset.m===m);});
  document.querySelectorAll('.pane').forEach(function(e){e.classList.toggle('on',e.id==='p-'+m);});
  document.getElementById('dtabs').style.display=m==='trip'?'':'none';
@@ -1036,13 +1105,14 @@ function setMain(m){curM=m;if(m!=='trip')map.closePopup();document.querySelector
  document.getElementById('body').scrollTop=0;}
 document.querySelectorAll('.dtab').forEach(function(e){e.onclick=function(){var d=e.dataset.d;show(isNaN(+d)?d:+d);document.getElementById('body').scrollTop=0;};});
 document.querySelectorAll('.mtab').forEach(function(e){e.onclick=function(){setMain(e.dataset.m);};});
-document.getElementById('body').addEventListener('click',function(ev){if(ev.target.closest('a'))return;var t=ev.target.closest('[data-poi],[data-leg],[data-sa],[data-go]');if(!t)return;
+document.getElementById('body').addEventListener('click',function(ev){if(ev.target.closest('a'))return;var t=ev.target.closest('[data-poi],[data-leg],[data-sa],[data-go],[data-ov]');if(!t)return;
  if(t.dataset.go){var d=t.dataset.go;show(isNaN(+d)?d:+d);return;}
  if(t.dataset.poi){var k=t.dataset.poi,m=PM[k];var dd=POI[k].day;if(curD!=='all'&&curD!==dd&&!(curD==='drive'&&(k==='hz'||k==='H'||k==='back')))show(dd,false);
   if(curD==='drive'&&!map.hasLayer(m))show(dd,false);
   if(isMob())setSheet('peek');map.setView(m.getLatLng(),Math.max(map.getZoom(),k==='hz'?11:15),{animate:true});setTimeout(function(){m.openPopup();},350);}
  else if(t.dataset.leg){var l=LL[+t.dataset.leg];if(isMob())setSheet('peek');map.fitBounds(l.getBounds(),Object.assign(padOpt(),{maxZoom:16}));setTimeout(function(){l.openTooltip(l.getBounds().getCenter());},400);}
- else if(t.dataset.sa){var i=+t.dataset.sa;if(curD!=='drive')show('drive',false);var s=SAM[i];if(isMob())setSheet('peek');map.setView(s.getLatLng(),12);setTimeout(function(){s.openPopup();},350);}});
+ else if(t.dataset.sa){var i=+t.dataset.sa;if(curD!=='drive')show('drive',false);var s=SAM[i];if(isMob())setSheet('peek');map.setView(s.getLatLng(),12);setTimeout(function(){s.openPopup();},350);}
+ else if(t.dataset.ov){var om=OVM[t.dataset.ov];if(curD!=='overnight'&&curD!=='all')show('overnight',false);if(isMob())setSheet('peek');map.setView(om.getLatLng(),15,{animate:true});setTimeout(function(){om.openPopup();},350);}});
 // ---------- mobile bottom sheet ----------
 var side=document.getElementById('side'),SH={peek:0.30,half:0.50,full:0.90},cur='half';
 function setSheet(s){cur=s;document.documentElement.style.setProperty('--sh',Math.round(window.innerHeight*SH[s])+'px');setTimeout(function(){map.invalidateSize();},230);}
